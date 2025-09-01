@@ -1,0 +1,19 @@
+name: PR Notifications to Discord
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord notifications
+        uses: cl8dep/action-discord@0.1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          message: |
+            New Pull Request Created  
+            **Title:** ${{ github.event.pull_request.title }}  
+            **Author:** ${{ github.event.pull_request.user.login }}  
+            ${{ github.event.pull_request.html_url }}
